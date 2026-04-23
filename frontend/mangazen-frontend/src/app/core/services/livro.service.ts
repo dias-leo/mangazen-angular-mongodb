@@ -1,8 +1,16 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { ILivro, ILivroCriacao, ILivroAtualizacao } from '../interfaces/livro.interface';
+
+export interface IListagemLivrosPaginada {
+  itens: ILivro[];
+  total: number;
+  pagina: number;
+  limite: number;
+  totalPaginas: number;
+}
 
 @Injectable({ providedIn: 'root' })
 export class LivroService {
@@ -10,8 +18,12 @@ export class LivroService {
 
   private readonly apiUrl = `${environment.apiUrl}/livros`;
 
-  listar(): Observable<ILivro[]> {
-    return this.http.get<ILivro[]>(this.apiUrl);
+  listar(pagina = 1, limite = 8): Observable<IListagemLivrosPaginada> {
+    const params = new HttpParams()
+      .set('pagina', String(pagina))
+      .set('limite', String(limite));
+
+    return this.http.get<IListagemLivrosPaginada>(this.apiUrl, { params });
   }
 
   buscarPorId(id: string): Observable<ILivro> {

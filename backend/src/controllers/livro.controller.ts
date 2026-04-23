@@ -2,9 +2,21 @@ import { Request, Response } from 'express';
 import { ILivroCriacao } from '../models/livro.model';
 import * as livroService from '../services/livro.service';
 
-export async function listarLivros(req: Request, res: Response) {
+interface IListarLivrosQuery {
+  pagina?: string;
+  limite?: string;
+}
+
+export async function listarLivros(
+  req: Request<{}, {}, {}, IListarLivrosQuery>,
+  res: Response
+) {
   try {
-    const livros = await livroService.listarLivros();
+    const pagina = Math.max(1, Number.parseInt(req.query.pagina ?? '1', 10) || 1);
+    const limiteBruto = Number.parseInt(req.query.limite ?? '8', 10) || 8;
+    const limite = Math.min(50, Math.max(1, limiteBruto));
+
+    const livros = await livroService.listarLivros(pagina, limite);
     return res.status(200).json(livros);
   } catch (error_) {
     console.error(error_);

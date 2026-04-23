@@ -1,0 +1,17 @@
+<section id="categorias" class="categorias">
+  <div class="categorias__cabecalho">
+    <p class="categorias__eyebrow">Categorias</p>
+    <h2>Encontre seu estilo favorito</h2>
+    <p>Do action mais intenso ao slice of life mais tranquilo, aqui voce encontra tudo o que o mundo dos mangás tem a oferecer.</p>
+  </div>
+
+  <div class="categorias__grade">
+    @for (categoria of categorias; track categoria.nome) {
+    <article class="categoria-card">
+      <h3>{{ categoria.nome }}</h3>
+      <p>{{ categoria.descricao }}</p>
+      <small>{{ categoria.total }}</small>
+    </article>
+    }
+  </div>
+</section>
