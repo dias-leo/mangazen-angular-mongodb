@@ -16,6 +16,10 @@ export interface ILivro {
   ativo: boolean;
 }
 
+export type ILivroCriacao = Omit<ILivro, '_id' | 'ativo'>;
+
+export type ILivroAtualizacao = Partial<ILivroCriacao>;
+
 const capaSchema = new Schema(
   {
     url: {

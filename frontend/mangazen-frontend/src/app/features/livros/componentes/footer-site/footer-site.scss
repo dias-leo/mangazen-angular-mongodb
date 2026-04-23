@@ -1,0 +1,117 @@
+:host {
+  display: block;
+  width: 100%;
+  margin-top: 72px;
+}
+
+.rodape {
+  padding: 34px 0 26px;
+  background: linear-gradient(180deg, #f5ebdc, #f0e2cf);
+  border-top: 1px solid rgba(240, 123, 33, 0.2);
+}
+
+.rodape__conteudo {
+  max-width: 1220px;
+  margin: 0 auto;
+  padding: 0 18px;
+}
+
+.rodape__newsletter {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 0 0 20px;
+  border-bottom: 1px solid rgba(42, 27, 19, 0.16);
+}
+
+.rodape__eyebrow {
+  margin: 0;
+  color: #f07b21;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+}
+
+.rodape h3 {
+  margin: 8px 0;
+  color: #2a1b13;
+}
+
+.rodape p {
+  color: #6c5748;
+}
+
+.rodape__form {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.rodape__form input {
+  min-width: 220px;
+  border: 1px solid rgba(42, 27, 19, 0.2);
+  border-radius: 999px;
+  padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.8);
+}
+
+.rodape__form button {
+  border: 0;
+  border-radius: 999px;
+  padding: 10px 14px;
+  background: #ef7c22;
+  color: #2a1400;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.rodape__links {
+  margin-top: 24px;
+  display: grid;
+  grid-template-columns: 1.3fr 1fr 1fr;
+  gap: 18px;
+}
+
+.rodape__links h4,
+.rodape__links h5 {
+  margin: 0 0 10px;
+  color: #22150e;
+}
+
+.rodape__links a {
+  display: block;
+  color: #6c5748;
+  text-decoration: none;
+  margin-bottom: 7px;
+}
+
+.rodape__links a:hover {
+  color: #ef7c22;
+}
+
+.rodape__copy {
+  margin: 20px 0 0;
+  padding-top: 14px;
+  border-top: 1px solid rgba(42, 27, 19, 0.15);
+  font-size: 0.86rem;
+}
+
+@media (max-width: 760px) {
+  .rodape__newsletter {
+    flex-direction: column;
+  }
+
+  .rodape__form {
+    width: 100%;
+  }
+
+  .rodape__form input {
+    min-width: 0;
+    width: 100%;
+  }
+
+  .rodape__links {
+    grid-template-columns: 1fr;
+  }
+}

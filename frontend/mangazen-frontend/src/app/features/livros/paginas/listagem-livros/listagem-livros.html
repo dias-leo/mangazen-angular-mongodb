@@ -1,0 +1,72 @@
+<section class="pagina">
+  <app-header-site />
+  <app-hero-banner />
+
+  <p *ngIf="carregando()" class="mensagem-carregando">Carregando livros...</p>
+  <p *ngIf="erro()" class="mensagem-erro">{{ erro() }}</p>
+
+  <section id="destaques" class="bloco">
+    <header class="bloco__cabecalho">
+      <div>
+        <p class="bloco__eyebrow">Destaques</p>
+        <h2>Os mais queridos pelos leitores</h2>
+      </div>
+      <a class="link-suave" href="#">Ver todos os livros</a>
+    </header>
+
+    <div class="grade" *ngIf="!carregando() && !erro() && livros().length > 0">
+      <article class="card" *ngFor="let livro of livros()">
+        <img [src]="livro.capa.url" [alt]="livro.capa.textoAlternativo" />
+        <h2>{{ livro.titulo }}</h2>
+        <p class="subtitulo">{{ livro.subtitulo }}</p>
+        <p><strong>Preço:</strong> R$ {{ livro.preco }}</p>
+        <p><strong>Estoque:</strong> {{ livro.estoque }} un.</p>
+        <p><strong>Categorias:</strong> {{ livro.categorias.join(', ') }}</p>
+        <div class="acoes">
+          <a class="botao-secundario" [routerLink]="['/livros/editar', livro._id]">Editar</a>
+          <button class="botao-perigo" type="button" (click)="excluirLivro(livro._id)">Excluir</button>
+        </div>
+      </article>
+    </div>
+
+    <div class="paginacao" *ngIf="!carregando() && !erro() && totalItens() > 0">
+      <button
+        type="button"
+        class="botao-secundario"
+        (click)="paginaAnterior()"
+        [disabled]="paginaAtual() === 1"
+      >
+        Anterior
+      </button>
+
+      <div class="paginacao__numeros" *ngIf="totalPaginas() > 1">
+        <button
+          *ngFor="let pagina of paginas()"
+          type="button"
+          class="pagina-numero"
+          [class.pagina-numero--ativa]="pagina === paginaAtual()"
+          (click)="irParaPagina(pagina)"
+        >
+          {{ pagina }}
+        </button>
+      </div>
+
+      <p class="paginacao__info">{{ totalItens() }} mangás</p>
+
+      <button
+        type="button"
+        class="botao-secundario"
+        (click)="proximaPagina()"
+        [disabled]="paginaAtual() === totalPaginas()"
+      >
+        Próxima
+      </button>
+    </div>
+
+    <p *ngIf="!carregando() && !erro() && livros().length === 0">Nenhum livro encontrado.</p>
+  </section>
+
+  <app-categorias-section />
+</section>
+
+<app-footer-site />
