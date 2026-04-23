@@ -1,4 +1,4 @@
-import { Livro, ILivro } from '../models/livro.model';
+import { Livro, ILivro, ILivroAtualizacao, ILivroCriacao } from '../models/livro.model';
 
 export async function listarLivros(): Promise<ILivro[]> {
   return await Livro.find({ ativo: true });
@@ -8,14 +8,14 @@ export async function buscarLivroPorId(id: string): Promise<ILivro | null> {
   return await Livro.findById(id);
 }
 
-export async function criarLivro(dadosLivro: Omit<ILivro, '_id'>): Promise<ILivro> {
+export async function criarLivro(dadosLivro: ILivroCriacao): Promise<ILivro> {
   const livro = await Livro.create(dadosLivro);
   return livro;
 }
 
 export async function atualizarLivro(
   id: string,
-  dadosAtualizacao: Partial<Omit<ILivro, '_id'>>
+  dadosAtualizacao: ILivroAtualizacao
 ): Promise<ILivro | null> {
   return await Livro.findByIdAndUpdate(id, dadosAtualizacao, {
     returnDocument: 'after',

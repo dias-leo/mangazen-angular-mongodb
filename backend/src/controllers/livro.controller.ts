@@ -1,11 +1,13 @@
 import { Request, Response } from 'express';
+import { ILivroCriacao } from '../models/livro.model';
 import * as livroService from '../services/livro.service';
 
 export async function listarLivros(req: Request, res: Response) {
   try {
     const livros = await livroService.listarLivros();
     return res.status(200).json(livros);
-  } catch (erro) {
+  } catch (error_) {
+    console.error(error_);
     return res.status(500).json({ mensagem: 'Erro ao listar livros' });
   }
 }
@@ -24,20 +26,24 @@ export async function buscarLivroPorId(
     }
 
     return res.status(200).json(livro);
-  } catch (erro) {
+  } catch (error_) {
+    console.error(error_);
     return res.status(500).json({ mensagem: 'Erro ao buscar livro' });
   }
 }
 
-export async function criarLivro(req: Request, res: Response) {
+export async function criarLivro(req: Request<{}, {}, ILivroCriacao>, res: Response) {
   try {
     const novoLivro = await livroService.criarLivro(req.body);
     return res.status(201).json(novoLivro);
-  } catch (erro: any) {
+  } catch (error_) {
+    const erro = error_ as { code?: number; message?: string };
+
     if (erro.code === 11000) {
       return res.status(400).json({ mensagem: 'ISBN já cadastrado' });
     }
 
+    console.error(error_);
     return res.status(400).json({
       mensagem: 'Erro ao criar livro',
       erro: erro.message
@@ -46,7 +52,7 @@ export async function criarLivro(req: Request, res: Response) {
 }
 
 export async function atualizarLivro(
-  req: Request<{ id: string }>,
+  req: Request<{ id: string }, {}, Partial<ILivroCriacao>>,
   res: Response
 ) {
   try {
@@ -59,11 +65,14 @@ export async function atualizarLivro(
     }
 
     return res.status(200).json(livroAtualizado);
-  } catch (erro: any) {
+  } catch (error_) {
+    const erro = error_ as { code?: number; message?: string };
+
     if (erro.code === 11000) {
       return res.status(400).json({ mensagem: 'ISBN já cadastrado' });
     }
 
+    console.error(error_);
     return res.status(400).json({
       mensagem: 'Erro ao atualizar livro',
       erro: erro.message
@@ -85,7 +94,8 @@ export async function deletarLivro(
     }
 
     return res.status(200).json({ mensagem: 'Livro desativado com sucesso' });
-  } catch (erro) {
+  } catch (error_) {
+    console.error(error_);
     return res.status(500).json({ mensagem: 'Erro ao deletar livro' });
   }
 }
