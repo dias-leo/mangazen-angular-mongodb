@@ -1,0 +1,19 @@
+<section class="container">
+  <h1>Catálogo de Mangás</h1>
+
+  <p *ngIf="carregando()" class="mensagem-carregando">Carregando livros...</p>
+  <p *ngIf="erro()" class="mensagem-erro">{{ erro() }}</p>
+
+  <div class="grade" *ngIf="!carregando() && !erro() && livros().length > 0">
+    <article class="card" *ngFor="let livro of livros()">
+      <img [src]="livro.capa.url" [alt]="livro.capa.textoAlternativo" />
+      <h2>{{ livro.titulo }}</h2>
+      <p class="subtitulo">{{ livro.subtitulo }}</p>
+      <p><strong>Preço:</strong> R$ {{ livro.preco }}</p>
+      <p><strong>Estoque:</strong> {{ livro.estoque }} un.</p>
+      <p><strong>Categorias:</strong> {{ livro.categorias.join(', ') }}</p>
+    </article>
+  </div>
+
+  <p *ngIf="!carregando() && !erro() && livros().length === 0">Nenhum livro encontrado.</p>
+</section>
