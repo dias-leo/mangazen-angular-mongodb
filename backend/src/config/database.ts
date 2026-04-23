@@ -10,8 +10,8 @@ export async function conectarBanco(): Promise<void> {
 
     await mongoose.connect(urlBanco);
     console.log('Banco de dados conectado com sucesso.');
-  } catch (erro) {
-    console.error('Erro ao conectar no banco de dados:', erro);
+  } catch (error_) {
+    console.error('Erro ao conectar no banco de dados:', error_);
     process.exit(1);
   }
 }

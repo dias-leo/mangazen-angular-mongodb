@@ -1,5 +1,6 @@
 import { Component, OnInit, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterLink } from '@angular/router';
 import { catchError, finalize, map, of, timeout } from 'rxjs';
 import { LivroService } from '../../../../core/services/livro.service';
 import { ILivro } from '../../../../core/interfaces/livro.interface';
@@ -7,7 +8,7 @@ import { ILivro } from '../../../../core/interfaces/livro.interface';
 @Component({
   selector: 'app-listagem-livros',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './listagem-livros.html',
   styleUrl: './listagem-livros.scss'
 })
@@ -41,6 +42,27 @@ export class ListagemLivrosComponent implements OnInit {
       )
       .subscribe((dados) => {
         this.livros.set(dados);
+      });
+  }
+
+  excluirLivro(id: string): void {
+    const confirmou = window.confirm('Tem certeza que deseja remover este livro?');
+
+    if (!confirmou) {
+      return;
+    }
+
+    this.livroService
+      .excluir(id)
+      .pipe(
+        timeout(10000),
+        catchError(() => {
+          this.erro.set('Não foi possível remover o livro.');
+          return of({ mensagem: '' });
+        })
+      )
+      .subscribe(() => {
+        this.carregarLivros();
       });
   }
 }

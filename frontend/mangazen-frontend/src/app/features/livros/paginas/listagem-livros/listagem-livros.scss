@@ -4,10 +4,44 @@
   padding: 24px;
 }
 
+.cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
 h1 {
-  text-align: center;
-  margin-bottom: 32px;
+  margin: 0;
   font-size: 32px;
+}
+
+.botao-principal,
+.botao-secundario,
+.botao-perigo {
+  border: 0;
+  border-radius: 8px;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.botao-principal {
+  background: #0f766e;
+  color: #fff;
+}
+
+.botao-secundario {
+  background: #e2e8f0;
+  color: #0f172a;
+}
+
+.botao-perigo {
+  background: #fee2e2;
+  color: #7f1d1d;
 }
 
 .mensagem-carregando,
@@ -60,5 +94,18 @@ h1 {
       color: #666;
       font-size: 13px;
     }
+  }
+}
+
+.acoes {
+  display: flex;
+  gap: 8px;
+  padding: 12px;
+}
+
+@media (max-width: 680px) {
+  .cabecalho {
+    flex-direction: column;
+    align-items: flex-start;
   }
 }

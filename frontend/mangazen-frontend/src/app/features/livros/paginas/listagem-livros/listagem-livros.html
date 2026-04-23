@@ -1,5 +1,8 @@
 <section class="container">
-  <h1>Catálogo de Mangás</h1>
+  <header class="cabecalho">
+    <h1>Catálogo de Mangás</h1>
+    <a class="botao-principal" routerLink="/livros/novo">Novo Livro</a>
+  </header>
 
   <p *ngIf="carregando()" class="mensagem-carregando">Carregando livros...</p>
   <p *ngIf="erro()" class="mensagem-erro">{{ erro() }}</p>
@@ -12,6 +15,10 @@
       <p><strong>Preço:</strong> R$ {{ livro.preco }}</p>
       <p><strong>Estoque:</strong> {{ livro.estoque }} un.</p>
       <p><strong>Categorias:</strong> {{ livro.categorias.join(', ') }}</p>
+      <div class="acoes">
+        <a class="botao-secundario" [routerLink]="['/livros/editar', livro._id]">Editar</a>
+        <button class="botao-perigo" type="button" (click)="excluirLivro(livro._id)">Excluir</button>
+      </div>
     </article>
   </div>
 
