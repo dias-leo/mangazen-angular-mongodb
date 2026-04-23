@@ -4,11 +4,13 @@ import { RouterLink } from '@angular/router';
 import { catchError, finalize, map, of, timeout } from 'rxjs';
 import { LivroService } from '../../../../core/services/livro.service';
 import { ILivro } from '../../../../core/interfaces/livro.interface';
+import { HeaderSiteComponent } from '../../componentes/header-site/header-site';
+import { HeroBannerComponent } from '../../componentes/hero-banner/hero-banner';
 
 @Component({
   selector: 'app-listagem-livros',
   standalone: true,
-  imports: [CommonModule, RouterLink],
+  imports: [CommonModule, RouterLink, HeaderSiteComponent, HeroBannerComponent],
   templateUrl: './listagem-livros.html',
   styleUrl: './listagem-livros.scss'
 })
@@ -46,7 +48,7 @@ export class ListagemLivrosComponent implements OnInit {
   }
 
   excluirLivro(id: string): void {
-    const confirmou = window.confirm('Tem certeza que deseja remover este livro?');
+    const confirmou = globalThis.confirm('Tem certeza que deseja remover este livro?');
 
     if (!confirmou) {
       return;

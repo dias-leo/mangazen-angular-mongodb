@@ -1,13 +1,20 @@
-<section class="container">
-  <header class="cabecalho">
-    <h1>Catálogo de Mangás</h1>
-    <a class="botao-principal" routerLink="/livros/novo">Novo Livro</a>
-  </header>
+<section class="pagina">
+  <app-header-site />
+  <app-hero-banner />
 
   <p *ngIf="carregando()" class="mensagem-carregando">Carregando livros...</p>
   <p *ngIf="erro()" class="mensagem-erro">{{ erro() }}</p>
 
-  <div class="grade" *ngIf="!carregando() && !erro() && livros().length > 0">
+  <section id="destaques" class="bloco">
+    <header class="bloco__cabecalho">
+      <div>
+        <p class="bloco__eyebrow">Destaques</p>
+        <h2>Os mais queridos pelos leitores</h2>
+      </div>
+      <a class="link-suave" href="#">Ver todos os livros</a>
+    </header>
+
+    <div class="grade" *ngIf="!carregando() && !erro() && livros().length > 0">
     <article class="card" *ngFor="let livro of livros()">
       <img [src]="livro.capa.url" [alt]="livro.capa.textoAlternativo" />
       <h2>{{ livro.titulo }}</h2>
@@ -23,4 +30,5 @@
   </div>
 
   <p *ngIf="!carregando() && !erro() && livros().length === 0">Nenhum livro encontrado.</p>
+</section>
 </section>
