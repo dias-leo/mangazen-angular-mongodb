@@ -1,5 +1,6 @@
 import express, { Request, Response } from 'express';
 import cors from 'cors';
+import livroRoutes from './routes/livro.routes';
 
 const app = express();
 
@@ -11,5 +12,7 @@ app.get('/health', (_req: Request, res: Response) => {
     message: 'API funcionando'
   });
 });
+
+app.use('/livros', livroRoutes);
 
 export default app;
